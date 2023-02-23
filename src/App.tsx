@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import Auth from './componets/Auth';
+import Login from './componets/Login';
+import Posts from './componets/Posts';
+import AddPosts from './componets/AddPosts';
+import { useAppDispatch, useAppSelector } from './hooks/hooks';
+import { checkIsAdmin } from './store/reducers/user/adminAction';
 
 function App() {
+  const { posts } = useAppSelector(state => state.posts)
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(checkIsAdmin())
+  }, [dispatch])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/posts" element={
+          <Auth>
+            <Posts posts={posts}/>
+            <AddPosts />
+          </Auth>} />
+        <Route path="/login" element={<Login/>} />
+      </Routes>
     </div>
   );
 }

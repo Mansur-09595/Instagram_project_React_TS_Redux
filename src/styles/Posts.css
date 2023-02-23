@@ -1,0 +1,97 @@
+.form-posts {
+    margin: auto;
+    align-items: center;
+    width: 1440px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background: #E5E5E5;
+}
+
+.card-inst {
+    width: 600px;
+    height: 910px;
+}
+
+.navbar-post {
+    display: flex;
+    width: 600px;
+    height: 60px;
+    background: #FFFFFF;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.avatar {
+    margin: 14px 0 0 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 15px; 
+}
+
+.post-username {
+    margin: 22px 0 0 14px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #262626;
+}
+
+.post-img {
+    width: 600px;
+    height: 600px;
+}
+
+.card-footer {
+    display: flex;
+    width: 600px;
+    height: 149px; 
+    background: #FFFFFF;
+    border-radius: 0px 0px 3px 3px;
+}
+
+.navbar-instagram {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    width: 1440px;
+    height: 60px;
+}
+
+.instagram_logo {
+    margin-right: 150px;
+    width: 103px;
+    height: 29px;;
+}
+
+.search {
+    width: 252px;
+    height: 36px;
+    background: #EFEFEF;
+    border-radius: 8px;
+    border: none;
+}
+
+.left-bar {
+    margin-top: 13px;
+    display: flex;
+}
+
+.right-bar {
+    margin-top: 19px;
+    display: flex;
+    gap: 27px;
+}
+
+.fonts-img {
+    width: 24px;
+    height: 24px;
+}
+
+.fonts-img-button {
+    background: none;
+    border: none;
+    margin: 0;
+    width: 24px;
+    padding: 0;
+    height: 24px;
+}
