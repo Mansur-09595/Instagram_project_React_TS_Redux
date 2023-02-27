@@ -15,7 +15,7 @@ export interface IPosts {
     description: string;
     comments: string[];
     image: string;
-    created_at: number;
+    created_at: string;
     likes: number;
 }
 
@@ -29,7 +29,6 @@ export type postState = {
 }
 
 export type instagramState = {
-    users: ILogin[];
     posts: IPosts[];
     isAdmin: boolean
     isLoading: boolean

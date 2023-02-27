@@ -26,7 +26,7 @@ const Login: React.FC = () => {
         <button className='button' onClick={handleSubmit} type="submit">Войти</button>
         <p>mansurmusaev mansurmusaev123</p>
       </div>
-      {!!token && <Navigate to="/posts"/>}
+      {!!token && <Navigate to="/"/>}
     </>
   )
 }

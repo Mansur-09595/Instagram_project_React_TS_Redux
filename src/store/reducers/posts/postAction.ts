@@ -7,7 +7,7 @@ export const getPosts = createAsyncThunk(
     "posts/get", 
     async function () {
         const res = await axios.get(`${baseURL}/posts`);
-        console.log(res.data);
+        // console.log(res.data);
         
         return res.data;
 });
@@ -37,10 +37,25 @@ export const removePosts = createAsyncThunk(
       const res = await axios.delete(`${baseURL}/posts/${_id}`, { 
         headers:{'Authorization': `Bearer ${Cookies.get('token')}`}, 
       });
-      console.log(res);
+      // console.log(res);
       return _id;
     } catch (error) {
       return rejectWithValue(error);
+    }
+  }
+);
+
+export const updatePost = createAsyncThunk(
+  "posts/update",
+  async ({ _id, description }: { _id: string; description: string; }, thunkAPI) => {
+
+    try {
+      const res = await axios.patch(`${baseURL}/posts/${_id}`, {description: description}, { 
+        headers:{'Authorization': `Bearer ${Cookies.get('token')}`} 
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { signIn, checkIsAdmin, signOut  } from "./adminAction";
+import { signIn, checkIsAdmin  } from "./adminAction";
 import { ILogin, postState } from "../../../types/IData";
 import Cookies from 'js-cookie';
 
@@ -50,20 +50,19 @@ export const adminSlice = createSlice({
       state.isLoading = true
       // state.error = action.error.message || "Something went wrong";
     })
-    builder.addCase(checkIsAdmin.fulfilled,(state, action: PayloadAction<ILogin[]>) => { 
+    builder.addCase(checkIsAdmin.fulfilled,(state, action) => { 
       state.isLoading = false
       state.isAdmin = true
-      state.users = action.payload
     })
-    builder.addCase(signOut.fulfilled, (state) => {
-      state.isAdmin = false;
-      state.currentUser = {
-        token: "",
-        username: "",
-        _id: "",
-        avatar: "",
-      };
-    });
+    // builder.addCase(signOut.fulfilled, (state) => {
+    //   state.isAdmin = false;
+    //   state.currentUser = {
+    //     token: "",
+    //     username: "",
+    //     _id: "",
+    //     avatar: "",
+    //   };
+    // });
   }
 });
 

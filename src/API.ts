@@ -1,33 +1,33 @@
-// import axios from 'axios'
-// import Cookies from 'js-cookie'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export const baseURL = "https://unicode-unigram.onrender.com";
 
-// export const baseService = axios.create({
-//     baseURL,
-// });
+export const baseService = axios.create({
+    baseURL,
+});
 
 // baseService.patch("/posts")
 
-// export const logout = (): void => {
-//     Cookies.remove("authorization");
-// };
+export const logout = (): void => {
+    Cookies.remove("token");
+};
 
-// export const fillToken = (authorization: string) => {
-//     baseService.defaults.headers.common.Authorization = `Bearer ${authorization}`;
-//     Cookies.set("authorization", authorization);
-// };
+export const fillToken = (token: string) => {
+    baseService.defaults.headers.common.Authorization = `Bearer ${token}`;
+    Cookies.set("token", token);
+};
 
-// export const attachAuthToken = (authorization: string) => {
-//     baseService.defaults.headers.common.Authorization = `Bearer ${authorization}`;
-// };
+export const attachAuthToken = (token: string) => {
+    baseService.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
-// export const token = Cookies.get("authorization");
+export const token = Cookies.get("token");
 
-// baseService.interceptors.response.use((res) => res, (error) => {
-//     if (error.response.status === 401) {
-//         logout();
-//     }
-//     return Promise.reject(error);
-//     }
-// )
+baseService.interceptors.response.use((res) => res, (error) => {
+    if (error.response.status === 401) {
+        logout();
+    }
+    return Promise.reject(error);
+    }
+)
