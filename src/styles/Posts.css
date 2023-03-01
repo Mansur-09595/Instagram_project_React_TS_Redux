@@ -212,3 +212,15 @@
 .more {
   color: #8e8e8e;
 }
+
+.active, .inactive {
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.active .button-img{
+  background: red;
+  border-radius: 0 0 150% 150%  /  0 0 180% 180% ;
+}

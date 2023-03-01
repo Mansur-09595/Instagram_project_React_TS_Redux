@@ -6,9 +6,7 @@ import Cookies from "js-cookie";
 export const getPosts = createAsyncThunk(
     "posts/get", 
     async function () {
-        const res = await axios.get(`${baseURL}/posts`);
-        // console.log(res.data);
-        
+        const res = await axios.get(`${baseURL}/posts`);        
         return res.data;
 });
 
@@ -34,10 +32,9 @@ export const removePosts = createAsyncThunk(
   "posts/delete",
   async (_id: string, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`${baseURL}/posts/${_id}`, { 
+      await axios.delete(`${baseURL}/posts/${_id}`, { 
         headers:{'Authorization': `Bearer ${Cookies.get('token')}`}, 
       });
-      // console.log(res);
       return _id;
     } catch (error) {
       return rejectWithValue(error);
@@ -48,7 +45,6 @@ export const removePosts = createAsyncThunk(
 export const updatePost = createAsyncThunk(
   "posts/update",
   async ({ _id, description }: { _id: string; description: string; }, thunkAPI) => {
-
     try {
       const res = await axios.patch(`${baseURL}/posts/${_id}`, {description: description}, { 
         headers:{'Authorization': `Bearer ${Cookies.get('token')}`} 

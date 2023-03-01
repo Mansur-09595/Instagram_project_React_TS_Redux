@@ -34,3 +34,17 @@ export type instagramState = {
     isLoading: boolean
     error: boolean | number | string | null;
 }
+
+
+//users
+export interface IUser {
+    _id: string;
+    username: string;
+    avatar: string;
+}
+
+export type UsersState = {
+    users: IUser[];
+    isLoading: boolean;
+    error: string | null;
+}

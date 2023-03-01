@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { IPosts } from "../types/IData";
 import { removePosts } from "../store/reducers/posts/postAction";
@@ -17,6 +17,8 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
+  const [active, setActive] = useState(false);
+  const [count, setCount] = useState(0);
   const { currentUser } = useAppSelector((state) => state.admin);
   const dispatch = useAppDispatch();
 
@@ -24,11 +26,17 @@ const Post: React.FC<PostProps> = ({ post }) => {
     dispatch(removePosts(_id));
   };
 
+  const likeHandler = () => {
+    setActive(!active);
+    setCount(active ? count - 1 : count + 1);
+  };
+
   return (
     <div className="card-inst" key={post._id}>
       <div className="navbar-post">
         <img className="avatar" src={post.user.avatar} alt={post.description} />
         <p className="post-username">{post.user.username}</p>
+        
 
         {currentUser.username === post.user.username && (
           <div className="dropdown">
@@ -48,7 +56,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
       <div className="card-footer">
         <div className="actions-buttons">
           <div className="buttons-column">
+          <button className={active ? "active" : "inactive"} onClick={likeHandler}>
             <img className="button-img" src={like} alt="" />
+          </button> 
             <img className="button-img" src={comments} alt="" />
             <img className="button-img" src={share} alt="" />
           </div>
@@ -57,7 +67,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           </div>
         </div>
         <div className="blocks-to-left">
-          <div className="likes-counts">9.999 likes</div>
+          <div className="likes-counts">{count} likes</div>
           <div className="in-blocks">
             <p className="post-username-in-block">{post.user.username}&nbsp;</p>
             <p className="post-description-in-block">

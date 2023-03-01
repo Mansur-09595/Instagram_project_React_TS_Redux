@@ -4,6 +4,12 @@ import { useAppSelector } from "../hooks/hooks";
 
 const AllUsers = () => {
   const { currentUser } = useAppSelector(state => state.admin)
+//   const { users } = useAppSelector(state => state.users)
+//   console.log(users);
+
+    const postUsernames = document.querySelectorAll('.post-username');
+    const usernamesArray = Array.from(postUsernames).map((el) => el.textContent);
+    const uniqueUsernames = Array.from(new Set(usernamesArray));
 
   return (
     <div className="Recomended">
@@ -19,46 +25,16 @@ const AllUsers = () => {
         <h4>Suggestions for you</h4>
         <span>See all</span>
       </div>
+      {uniqueUsernames.map((user) => 
       <div className="Recomended__secondPlus">
         <div className="Circle small"></div>
         <div>
-          <h1>janedoe</h1>
+          <h1>{user ? <h1>{user}</h1> : <p>No username available</p>}</h1>
           <h4>Suggestion for you</h4>
         </div>
         <h3>Follow</h3>
       </div>
-      <div className="Recomended__secondPlus">
-        <div className="Circle small"></div>
-        <div>
-          <h1>robertdoe</h1>
-          <h4>Suggestion for you</h4>
-        </div>
-        <h3>Follow</h3>
-      </div>
-      <div className="Recomended__secondPlus">
-        <div className="Circle small"></div>
-        <div>
-          <h1>sandradoe</h1>
-          <h4>Suggestion for you</h4>
-        </div>
-        <h3>Follow</h3>
-      </div>
-      <div className="Recomended__secondPlus">
-        <div className="Circle small"></div>
-        <div>
-          <h1>pepedoe_</h1>
-          <h4>Suggestion for you</h4>
-        </div>
-        <h3>Follow</h3>
-      </div>
-      <div className="Recomended__secondPlus">
-        <div className="Circle small"></div>
-        <div>
-          <h1>simon.doe</h1>
-          <h4>Suggestion for you</h4>
-        </div>
-        <h3>Follow</h3>
-      </div>
+        )}
       <h4>
         Information · Help · Prisoner · API · Job · Privacity · Conditions ·
         Locations · Trending accounts · Hashtags · Language
