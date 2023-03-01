@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-// import Auth from './componets/Auth';
 import Login from './componets/Login';
 import Posts from './componets/Posts';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
@@ -22,7 +21,11 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        { isAdmin ? (<Route path="/" element={<Posts posts={posts}/> } />) : (<Route path="/login" element={<Login/>} />) }
+        { isAdmin ? (
+          <Route path="/" element={<Posts posts={posts}/> } /> 
+          ) : (
+          <Route path="/login" element={<Login/>} />
+          ) }
       </Routes>
     </div>
   );

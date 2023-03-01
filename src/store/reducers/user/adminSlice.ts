@@ -1,29 +1,23 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { signIn, checkIsAdmin  } from "./adminAction";
-import { ILogin, postState } from "../../../types/IData";
+import { createSlice } from "@reduxjs/toolkit";
+import { signIn, checkIsAdmin, signOut  } from "./adminAction";
+import { postState } from "../../../types/IData";
 import Cookies from 'js-cookie';
-
-
-// const initialState: loginState = {
-//   token: null,
-//   isAdmin: false,
-//   isLoading: false,
-//   error: null,
-// };
 
 const initialState: postState = {
   users: [],
   posts: [],
   currentUser: {
     token: Cookies.get('token') || '',
-    username: "",
-    _id: "",
-    avatar: "",
+    username: Cookies.get('username') || '',
+    _id: Cookies.get('_id') || '',
+    avatar: Cookies.get('avatar') || '',
   },
   isAdmin: false,
   isLoading: false,
-  // error: null,
+  error: null,
 };
+
+console.log(initialState.currentUser.username);
 
 export const adminSlice = createSlice({
   name: "admin",
@@ -39,30 +33,31 @@ export const adminSlice = createSlice({
         state.isAdmin = true;
         state.currentUser = action.payload
         Cookies.set('token', action.payload.token, { expires: 20 })
+        Cookies.set('avatar', action.payload.avatar)
     })
     builder.addCase(signIn.rejected, (state, action) => {
       state.isLoading = false;
       state.isAdmin = false;
-      // state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || "Something went wrong";
     });
 
-    builder.addCase(checkIsAdmin.pending, (state, action) => {
+    builder.addCase(checkIsAdmin.pending, (state) => {
       state.isLoading = true
-      // state.error = action.error.message || "Something went wrong";
+      state.error = "Something went wrong";
     })
-    builder.addCase(checkIsAdmin.fulfilled,(state, action) => { 
+    builder.addCase(checkIsAdmin.fulfilled,(state) => { 
       state.isLoading = false
       state.isAdmin = true
     })
-    // builder.addCase(signOut.fulfilled, (state) => {
-    //   state.isAdmin = false;
-    //   state.currentUser = {
-    //     token: "",
-    //     username: "",
-    //     _id: "",
-    //     avatar: "",
-    //   };
-    // });
+    builder.addCase(signOut.fulfilled, (state) => {
+      state.isAdmin = false;
+      state.currentUser = {
+        token: "",
+        username: "",
+        _id: "",
+        avatar: "",
+      };
+    });
   }
 });
 

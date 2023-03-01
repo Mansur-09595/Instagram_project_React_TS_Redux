@@ -9,6 +9,8 @@
 }
 
 .card-inst {
+    margin-right: 350px;
+    margin-top: 25px;
     width: 600px;
     height: 910px;
 }
@@ -51,18 +53,19 @@
 .navbar-instagram {
     margin: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     width: 1440px;
     height: 60px;
 }
 
 .instagram_logo {
-    margin-right: 150px;
     width: 103px;
     height: 29px;;
 }
 
 .search {
+    font-size: 16px;
+    line-height: 19px;
     width: 252px;
     height: 36px;
     background: #EFEFEF;
@@ -72,11 +75,16 @@
 
 .left-bar {
     margin-top: 13px;
+    margin-right: 145px;
+    width: 505px;
     display: flex;
+    justify-content: space-between;
+
 }
 
 .right-bar {
     margin-top: 19px;
+    width: 270px;
     display: flex;
     gap: 27px;
 }

@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { attachAuthToken, baseService, baseURL, fillToken } from "../../../API";
+import { attachAuthToken, baseService, fillToken } from "../../../API";
 import { ILogin } from "../../../types/IData";
 import Cookies from 'js-cookie';
 
@@ -14,26 +13,23 @@ export const checkIsAdmin = createAsyncThunk(
       } catch (error) {
         return thunkAPI.rejectWithValue(error)
       }
-    //   const res = await axios.get(`${baseURL}/user`, 
-    //   {headers:{'Authorization': `Bearer ${token}`},
-    // });
-      // return res.data
     }
 );
 
 export const signIn = createAsyncThunk<ILogin, { username: string; password: string }>(
-    "token/getToken", 
-    async function (credentials, thunkAPI) {
-    try {
-        const { data } = await baseService.post("/user/sign-in", credentials);
-        attachAuthToken(data.token)
-        fillToken(data.token)
-        return data;
-    } catch (error) {
-        throw thunkAPI.rejectWithValue(error);
+  "token/getToken", 
+  async function (credentials, thunkAPI) {
+  try {
+      const { data } = await baseService.post("/user/sign-in", credentials);
+      attachAuthToken(data.token)
+      fillToken(data.token)
+      Cookies.set('username', credentials.username); // store username in cookie
+      return { ...data, username: credentials.username };
+  } catch (error) {
+      throw thunkAPI.rejectWithValue(error);
   }
 });
 
-// export const signOut = createAsyncThunk<void, void>("token/deleteToken", async () => {
-//   Cookies.remove("token");
-// });
+export const signOut = createAsyncThunk<void, void>("token/deleteToken", async () => {
+  Cookies.remove("token");
+});

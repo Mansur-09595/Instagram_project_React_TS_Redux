@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { updatePost } from '../store/reducers/posts/postAction';
 import { useAppDispatch } from '../hooks/hooks';
-import options from "../images/fonts/options.png"
 import { IPosts } from '../types/IData';
 import "../styles/PopUp.css"
 import "../styles/Posts.css"

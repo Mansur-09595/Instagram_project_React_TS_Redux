@@ -25,7 +25,7 @@ export type postState = {
     currentUser: ILogin,
     isAdmin: boolean
     isLoading: boolean
-    // error: boolean | number | string | null;
+    error: boolean | number | string | null;
 }
 
 export type instagramState = {
