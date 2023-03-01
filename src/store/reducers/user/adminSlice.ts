@@ -34,6 +34,7 @@ export const adminSlice = createSlice({
         state.currentUser = action.payload
         Cookies.set('token', action.payload.token, { expires: 20 })
         Cookies.set('avatar', action.payload.avatar)
+        Cookies.set('_id', action.payload._id)
     })
     builder.addCase(signIn.rejected, (state, action) => {
       state.isLoading = false;

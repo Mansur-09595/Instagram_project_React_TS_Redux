@@ -3,8 +3,7 @@ import add from "../images/fonts/add.png";
 import arrow from "../images/fonts/arrow.png";
 import "../styles/PopUp.css";
 import "../styles/Posts.css";
-import { useAppSelector } from "../hooks/hooks";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { addPosts } from "../store/reducers/posts/postAction";
 
 const PopUp = () => {
@@ -12,7 +11,7 @@ const PopUp = () => {
   const [newPost, setNewPost] = useState("");
   const [newImage, setNewImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<any>("");
-  const { username, avatar } = useAppSelector((state) => state.admin.currentUser);
+  const { currentUser } = useAppSelector((state) => state.admin);
   const dispatch = useAppDispatch();
 
   const openPopup = () => {
@@ -27,6 +26,7 @@ const PopUp = () => {
     }
     setNewPost("");
     setNewImage(null);
+    setImageUrl("");
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -48,25 +48,34 @@ const PopUp = () => {
 
   return (
     <>
-      <button className="fonts-img-button button" onClick={openPopup} type="button">
+      <button className="fonts-img-button button-popup" onClick={openPopup} type="button">
         <img className="fonts-img" src={add} alt="" />
       </button>
       {imageUrl ? (
         <div ref={popupRef} className="overlay">
           <div className="popup-description">
-          <div className="navbar-popup">
-              <button className="fonts-img-button button" onClick={closePopup}>
-                <img className="fonts-img" src={arrow} alt="" />
+            <div className="navbar-popup-description">
+              <button className="fonts-img-button button-popup" onClick={closePopup}>
+                <img className="fonts-img move-arrow" src={arrow} alt="" />
               </button>
-              <h2 className="create-title">Создание публикации</h2>
-              <a onClick={handleSubmit} className="close">Поделиться</a>
+              <h2 className="create-title-description">Создание публикации</h2>
+              <a onClick={handleSubmit} className="share">Поделиться</a>
             </div>
             <form className="column-description">
               <img className="image-description" src={imageUrl} alt="your post" />
-              <img className='avatar' src={avatar} alt="avatar" />
-              <p className='post-username'>{username}</p>
-              <textarea className="input_name" value={newPost} placeholder="Enter description"onChange={(event) => setNewPost(event.target.value)}/>
-              {/* <button type="submit" className="">Добавить</button> */}
+              <div className="description-popup-column">
+                <div className="data-descpt">
+                  <img className='avatar' src={currentUser.avatar} alt="avatar" />
+                  <p className='post-username-description'>{currentUser.username}</p>
+                </div>
+                
+                <textarea className="input_name" value={newPost} maxLength={2200} placeholder="Добавьте подпись..."onChange={(event) => setNewPost(event.target.value)}/>
+
+                <p className="descpt-ileft">
+                  {`${0 + newPost.length}/2200`}
+                </p>
+
+              </div>
             </form>
           </div>
         </div>
