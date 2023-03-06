@@ -55,3 +55,31 @@ export const updatePost = createAsyncThunk(
     }
   }
 );
+
+export const likePost = createAsyncThunk(
+  "posts/like",
+  async (_id: string, thunkAPI) => {
+    try {
+      const res = await axios.post(`${baseURL}/posts/${_id}/like`, {}, { 
+        headers:{'Authorization': `Bearer ${Cookies.get('token')}`} 
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const unlikePost = createAsyncThunk(
+  "posts/unlike",
+  async (_id: string, thunkAPI) => {
+    try {
+      const res = await axios.post(`${baseURL}/posts/${_id}/unlike`, {}, { 
+        headers:{'Authorization': `Bearer ${Cookies.get('token')}`} 
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);

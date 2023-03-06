@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getPosts, addPosts, removePosts, updatePost } from "./postAction";
+import { getPosts, addPosts, removePosts, updatePost, likePost, unlikePost } from "./postAction";
 import { instagramState } from "../../../types/IData";
 import { IPosts } from "../../../types/IData";
 
@@ -69,6 +69,19 @@ export const todoSlice = createSlice({
     builder.addCase(updatePost.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || "Something went wrong";
+    });
+    //likedPost
+    builder.addCase(likePost.fulfilled, (state, action) => {
+      const likedPost = state.posts.find(post => post._id === action.payload._id);
+      if (likedPost) {
+        likedPost.likes += 1;
+      }
+    })
+    builder.addCase(unlikePost.fulfilled, (state, action) => {
+      const unlikedPost = state.posts.find(post => post._id === action.payload._id);
+      if (unlikedPost) {
+        unlikedPost.likes -= 1;
+      }
     });
   }
 });

@@ -58,6 +58,10 @@
   height: 29px;
 }
 
+.search-main {
+  position: relative;
+}
+
 .search {
   font-size: 16px;
   line-height: 19px;
@@ -66,6 +70,22 @@
   background: #efefef;
   border-radius: 8px;
   border: none;
+}
+
+.search::placeholder {
+  padding-left: 48px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 37%;
+  right: 86%;
+  transform: translateY(-50%);
+}
+
+.search-icon i {
+  font-size: 1.2rem;
+  color: #ccc;
 }
 
 .left-bar {

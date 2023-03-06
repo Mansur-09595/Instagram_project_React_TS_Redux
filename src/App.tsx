@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
 import Login from './componets/Login';
 import Posts from './componets/Posts';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';

@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { checkIsAdmin, signOut } from "../store/reducers/user/adminAction";
-import { getPosts, removePosts } from "../store/reducers/posts/postAction";
+import { getPosts } from "../store/reducers/posts/postAction";
 import { IPosts } from "../types/IData";
+import { BiSearch } from "react-icons/bi";
 import "../styles/Posts.css";
 import instagram_logo from "../images/instagram.png";
 import home from "../images/fonts/home.png";
@@ -44,7 +45,10 @@ const Posts: React.FC<PostListProps> = () => {
       <div className="navbar-instagram">
         <div className="left-bar">
           <img className="instagram_logo" src={instagram_logo} alt="" />
-          <input className="search" type="text" placeholder="Search" />
+          <div className="search-main">
+            <input className="search" type="text" placeholder="Search" />
+            <span className="search-icon"><i className="fa fa-search"></i></span>
+          </div>
         </div>
         <div className="right-bar">
           <button className="fonts-img-button button-popup" onClick={handleLogout}>

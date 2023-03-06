@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { IPosts } from "../types/IData";
-import { removePosts } from "../store/reducers/posts/postAction";
+import { removePosts, unlikePost, likePost } from "../store/reducers/posts/postAction";
 import comments from "../images/fonts/comments.png";
 import share from "../images/fonts/share.png";
 import emojis from "../images/fonts/emojis.png";
@@ -17,7 +17,7 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-  const [active, setActive] = useState(false);
+  const [isLiked, setIsLiked] = useState(post.likes > 0);
   const [count, setCount] = useState(0);
   const { currentUser } = useAppSelector((state) => state.admin);
   const dispatch = useAppDispatch();
@@ -26,9 +26,16 @@ const Post: React.FC<PostProps> = ({ post }) => {
     dispatch(removePosts(_id));
   };
 
-  const likeHandler = () => {
-    setActive(!active);
-    setCount(active ? count - 1 : count + 1);
+  const handleLikeToggle = (_id: string) => {
+    if (isLiked) {
+      dispatch(unlikePost(_id));
+      setIsLiked(false);
+      setCount(count - 1)
+    } else {
+      dispatch(likePost(_id));
+      setIsLiked(true);
+      setCount(count + 1)
+    }
   };
 
   return (
@@ -56,11 +63,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
       <div className="card-footer">
         <div className="actions-buttons">
           <div className="buttons-column">
-          <button className={active ? "active" : "inactive"} onClick={likeHandler}>
-            <img className="button-img" src={like} alt="" />
-          </button> 
-            <img className="button-img" src={comments} alt="" />
-            <img className="button-img" src={share} alt="" />
+            <button className={isLiked ? "active" : "inactive"} onClick={() => handleLikeToggle(post._id)}>
+              <img className="button-img" src={like} alt="" />
+            </button> 
+              <img className="button-img" src={comments} alt="" />
+              <img className="button-img" src={share} alt="" />
           </div>
           <div className="button-save">
             <img className="button-img" src={save} alt="" />
